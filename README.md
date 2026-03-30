@@ -1,5 +1,61 @@
 # Arduino Smart LED Controller (Arduino + C++)
 
+# Arduino LED Controller
+
+A simple Arduino project to control an LED using a button and a potentiometer.
+
+## What it does
+
+* Press the button to switch between:
+
+  * LED always ON
+  * LED blinking
+* Use the potentiometer to control how fast the LED blinks
+
+## Demo
+
+(Add a picture or GIF here later)
+
+## Components Used
+
+* Arduino Uno
+* LED
+* 220Ω resistor
+* Push button
+* Potentiometer (10kΩ)
+
+## Circuit
+
+* LED → Pin 13
+* Button → Pin 2
+* Potentiometer → A0
+
+## How to Run
+
+1. Open Arduino IDE
+2. Open `smart_led.ino`
+3. Select **Arduino Uno**
+4. Click Upload
+
+## Code
+
+The code is written in Arduino (which is based on C++).
+
+* `smart_led.ino` → Arduino version (easy to read)
+* `smart_led.cpp` → same logic in standard C++
+
+## What I learned
+
+* How to control LED using Arduino
+* How to read button input
+* How to use analog input (potentiometer)
+* How to avoid delay() using millis()
+
+## Author
+
+Harsh Mehta
+
+
 ## Overview
 
 This project demonstrates how Arduino is built on top of C++ while simplifying development through `.ino` files.
