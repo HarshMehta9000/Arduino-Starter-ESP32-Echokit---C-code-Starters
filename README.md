@@ -175,15 +175,5 @@ arduino-smart-led-v2/
 
 ---
 
-## Future Improvements
-
-* Interrupt-based button handling
-* OLED display integration
-* ESP32 WiFi dashboard
-* IoT logging system
-
----
-
-## Author
 
 Harsh Mehta
