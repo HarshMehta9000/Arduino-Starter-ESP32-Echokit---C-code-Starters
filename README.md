@@ -1,5 +1,7 @@
 # smart_led
 
+**[smart-led-teardown.vercel.app](https://smart-led-teardown.vercel.app)**
+
 An Arduino sketch that blinks an LED, and an interactive teardown of it.
 
 The sketch is 49 lines. It reads a button, reads a potentiometer, and blinks an
@@ -27,8 +29,11 @@ true the moment you move it to an ESP32.
 
 ## Try it
 
-The site is in [`web/`](web) and runs offline. Nothing is fetched from a CDN at
-runtime, including the fonts and the 3D board's environment lighting.
+**[smart-led-teardown.vercel.app](https://smart-led-teardown.vercel.app)**
+
+Turn the trimmer, press the button, orbit the board. The source is in
+[`web/`](web) and runs offline: nothing is fetched from a CDN at runtime,
+including the fonts and the 3D board's environment lighting.
 
 ```bash
 cd web
