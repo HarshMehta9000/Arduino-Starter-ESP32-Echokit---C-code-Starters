@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/*
+ * Instrument-panel dark. The palette is taken from the hardware itself: black
+ * PCB, amber indicator LED, cyan signal traces, gold pads. One brand accent
+ * (amber), one data accent (cyan), one alarm (red), and nothing else.
+ */
+@theme {
+  --color-pcb: #07080a;
+  --color-panel: #0d0f13;
+  --color-panel-2: #12151b;
+  --color-edge: #1c212b;
+  --color-edge-2: #2a313e;
+
+  --color-ink: #e8eaef;
+  --color-ink-dim: #98a1b0;
+  --color-ink-faint: #626b7a;
+
+  --color-led: #ffb020;
+  --color-led-soft: #ffcd6b;
+  --color-trace: #22d3ee;
+  --color-trace-soft: #7fe6f7;
+  --color-alarm: #ff5f56;
+  --color-ok: #3fd18b;
+  --color-gold: #c9a227;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-pcb);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+/* A faint copper-trace grid, so the page reads as a board even when still. */
+.board-grid {
+  background-image:
+    linear-gradient(to right, rgba(34, 211, 238, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 211, 238, 0.045) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+.led-glow {
+  box-shadow:
+    0 0 12px 2px rgba(255, 176, 32, 0.55),
+    0 0 34px 8px rgba(255, 176, 32, 0.22);
+}
+
+.trace-glow {
+  box-shadow: 0 0 14px rgba(34, 211, 238, 0.28);
+}
+
+/* Scanline sweep used by the serial tape and the live layer. */
+@keyframes sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+.sweep::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 33%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(34, 211, 238, 0.12),
+    transparent
+  );
+  animation: sweep 4.5s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.85);
+  }
+  70% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.6);
+  }
+}
+.pulse-ring {
+  animation: pulse-ring 1.6s ease-out infinite;
+}
+
+/* Focus ring that survives on a dark board. */
+:where(a, button, input, select, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-trace);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: rgba(255, 176, 32, 0.3);
+}
+
+/* Slider styled as a trimmer potentiometer. */
+input[type="range"].pot {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
+}
+input[type="range"].pot::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--color-trace) 0%,
+    var(--color-led) 100%
+  );
+  opacity: 0.55;
+}
+input[type="range"].pot::-moz-range-track {
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(
+    90deg,
+    var(--color-trace) 0%,
+    var(--color-led) 100%
+  );
+  opacity: 0.55;
+}
+input[type="range"].pot::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  margin-top: -7px;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #e8eaef;
+  border: 3px solid var(--color-gold);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+input[type="range"].pot::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #e8eaef;
+  border: 3px solid var(--color-gold);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .sweep::after,
+  .pulse-ring {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
